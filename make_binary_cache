@@ -11,10 +11,16 @@ mkdir -p "$OUTPUT"/cache
 
 pushd pkgs || exit 1
 
-tar -cJf "$OUTPUT"/nixexprs.tar.xz ./*.nix ./**/* \
-    --transform "s,^,${PWD##*/}/," \
+# removing old builds
+rm -rf ./result*
+
+# Don't think we need this
+# --transform "s,^,${PWD##*/}/," \
+#tar -cJf "$OUTPUT"/nixexprs.tar.xz ./*.nix ./**/* \
+tar -cJf nixexprs.tar.xz ./*.nix ./**/*.nix \
     --owner=0 --group=0 --mtime="1970-01-01 00:00:00 UTC"
 
+# Files needed if you want to use nix-serve
 touch "$OUTPUT"/index.html
 
 printf 'pc5/cache' > "$OUTPUT"/pc5
@@ -23,6 +29,7 @@ nix-build
 
 sudo nix sign-paths -k "$NIX_SECRET_KEY_FILE"
 nix copy --to "file:///$OUTPUT/cache"
+mv ./nixexprs.tar.xz "$OUTPUT"/
 
 # not working for some reason
 # nix path-info --store "file:///$OUTPUT/cache" --json | json_pp
@@ -30,4 +37,3 @@ nix copy --to "file:///$OUTPUT/cache"
 popd || exit 1
 
 tar czvf ./cache.tar.gz "$OUTPUT"
-
