@@ -11,6 +11,10 @@ let
 in
 with channels;
 rec {
-  fermi-lite = markhor.callPackage ./fermi-lite/default.nix {};
-  svdb = markhor.callPackage ./svdb/default.nix { };
+  # TODO:
+  # fermi-lite = markhor.callPackage ./fermi-lite/default.nix {};
+#  svdb = markhor.callPackage ./svdb/default.nix { };
+#  kent = markhor.callPakcage ./kent/default.nix { };
+  tiddit = markhor.callPackage ./tiddit/default.nix { };
+#  gatk4 = markhor.callPackage ./gatk4/default.nix { };
 }

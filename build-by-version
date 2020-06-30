@@ -5,4 +5,4 @@ set -euo pipefail
 TOOL="$1"
 VERSION="$2"
 
-LC_ALL=C nix run  "(import ./find-versions.nix {}).$TOOL.\"$VERSION\"" -c "$TOOL"
+LC_ALL=C nix build "(import ./find-versions.nix {}).\"$TOOL\".\"$VERSION\""

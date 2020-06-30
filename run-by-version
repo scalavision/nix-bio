@@ -5,5 +5,5 @@ set -euo pipefail
 TOOL="$1"
 VERSION="$2"
 
-LC_ALL=C nix run  "(import (builtins.fetchurl https://matthewbauer.us/generate-versions.nix) {}).$TOOL.\"$VERSION\"" -c "$TOOL"
+LC_ALL=C nix run  "(import ./find-versions.nix {}).$TOOL.\"$VERSION\"" -c "$TOOL"
 
