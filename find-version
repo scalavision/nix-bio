@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+nix eval "(builtins.attrNames (import ./find-versions.nix {}).$1)"
